@@ -15,7 +15,7 @@ export default function useRegisterSubmit (
 ): (
 	e: React.FormEvent<HTMLFormElement>,
 ) => Promise<void> {
-	const fortunaApiClient = useApiClientContext()
+	const fastTalkApiClient = useApiClientContext()
 	const navigate = useTypedNavigate()
 	const setDataAfterRegister = useSetDataAfterLoginOrRegister()
 
@@ -30,7 +30,7 @@ export default function useRegisterSubmit (
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { passwordConfirmation, ...restOfCredentials } = registerCredentials
 
-			const response = await fortunaApiClient.authDataService.register(restOfCredentials)
+			const response = await fastTalkApiClient.authDataService.register(restOfCredentials)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to register. Please reload page and try again.")
@@ -43,5 +43,5 @@ export default function useRegisterSubmit (
 		} finally {
 			setLoading(false)
 		}
-	}, [fortunaApiClient.authDataService, navigate, registerCredentials, setDataAfterRegister, setError, setLoading, whereToNavigate])
+	}, [fastTalkApiClient.authDataService, navigate, registerCredentials, setDataAfterRegister, setError, setLoading, whereToNavigate])
 }

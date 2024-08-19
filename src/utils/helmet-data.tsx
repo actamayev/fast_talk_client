@@ -11,7 +11,7 @@ const helmetData: HelmetData = {
 			pageTitleData="FastTalk"
 			description="Talk Fast with FastTalk"
 			url="http://localhost:3000/"
-			needsFortunaSuffix={false}
+			needsFastTalkSuffix={false}
 		/>
 	),
 	"/login": (

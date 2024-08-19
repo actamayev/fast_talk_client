@@ -5,12 +5,12 @@ interface Props {
 	pageTitleData: string
 	description: string
 	url: string
-	needsFortunaSuffix?: boolean
+	needsFastTalkSuffix?: boolean
 }
 
 export default function BasicHelmet(props: Props) {
-	const { pageTitleData, description, url, needsFortunaSuffix = true } = props
-	const truncatedTitle = _.truncate(pageTitleData, { length: 50 }) + (needsFortunaSuffix ? " | Fortuna" : "")
+	const { pageTitleData, description, url, needsFastTalkSuffix = true } = props
+	const truncatedTitle = _.truncate(pageTitleData, { length: 50 }) + (needsFastTalkSuffix ? " | Fast Talk" : "")
 	const truncatedDescription = _.truncate(description, { length: 155})
 
 	return (

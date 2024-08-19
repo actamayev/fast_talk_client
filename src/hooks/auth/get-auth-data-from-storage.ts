@@ -4,10 +4,10 @@ import { useApiClientContext } from "../../contexts/fast-talk-api-client-context
 
 export default function useGetAuthDataFromStorage(): () => void {
 	const authClass = useAuthContext()
-	const fortunaApiClient = useApiClientContext()
+	const fastTalkApiClient = useApiClientContext()
 
 	return useCallback((): void => {
 		const accessToken = authClass.getAuthDataFromStorage()
-		fortunaApiClient.httpClient.accessToken = accessToken
-	}, [authClass, fortunaApiClient.httpClient])
+		fastTalkApiClient.httpClient.accessToken = accessToken
+	}, [authClass, fastTalkApiClient.httpClient])
 }

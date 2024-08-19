@@ -4,10 +4,10 @@ import { useApiClientContext } from "../../contexts/fast-talk-api-client-context
 
 export default function useSetDataAfterLoginOrRegister(): (authData: LoginOrRegisterSuccess) => void {
 	const authClass = useAuthContext()
-	const fortunaApiClient = useApiClientContext()
+	const fastTalkApiClient = useApiClientContext()
 
 	return useCallback((authData: LoginOrRegisterSuccess): void => {
-		fortunaApiClient.httpClient.accessToken = authData.accessToken
+		fastTalkApiClient.httpClient.accessToken = authData.accessToken
 		authClass.setAccessToken(authData.accessToken, true)
-	}, [authClass, fortunaApiClient.httpClient])
+	}, [authClass, fastTalkApiClient.httpClient])
 }

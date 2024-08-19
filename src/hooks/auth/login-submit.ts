@@ -15,7 +15,7 @@ export default function useLoginSubmit (
 ): (
 	e: React.FormEvent<HTMLFormElement>,
 ) => Promise<void> {
-	const fortunaApiClient = useApiClientContext()
+	const fastTalkApiClient = useApiClientContext()
 	const setDataAfterLogin = useSetDataAfterLoginOrRegister()
 	const navigate = useTypedNavigate()
 
@@ -27,7 +27,7 @@ export default function useLoginSubmit (
 			if (areCredentialsValid === false) return
 
 			setLoading(true)
-			const response = await fortunaApiClient.authDataService.login(loginInformation)
+			const response = await fastTalkApiClient.authDataService.login(loginInformation)
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to login. Please reload page and try again.")
 				return
@@ -39,5 +39,5 @@ export default function useLoginSubmit (
 		} finally {
 			setLoading(false)
 		}
-	}, [fortunaApiClient.authDataService, loginInformation, navigate, setDataAfterLogin, setError, setLoading, whereToNavigate])
+	}, [fastTalkApiClient.authDataService, loginInformation, navigate, setDataAfterLogin, setError, setLoading, whereToNavigate])
 }

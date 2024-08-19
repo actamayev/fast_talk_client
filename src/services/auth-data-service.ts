@@ -1,10 +1,10 @@
 import { AxiosResponse } from "axios"
-import FortunaHttpClient from "../classes/fast-talk-http-client"
+import FastTalkHttpClient from "../classes/fast-talk-http-client"
 
 export default class AuthDataService {
 	private readonly pathHeader: PathHeaders = "/auth"
 
-	constructor(private readonly httpClient: FortunaHttpClient) {
+	constructor(private readonly httpClient: FastTalkHttpClient) {
 	}
 
 	async login(loginInformation: LoginCredentials): Promise<AxiosResponse<LoginOrRegisterSuccess | NonSuccessResponse>> {
