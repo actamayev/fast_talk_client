@@ -9,7 +9,7 @@ declare global {
 
 	//Auth Responses:
 	type LoginOrRegisterSuccess = {
-		accessToken: string
+		access_token: string
 	}
 }
 
