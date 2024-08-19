@@ -1,0 +1,14 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "typescript",
+    "javascript"
+  ],
+  "editor.insertSpaces": false,
+  "editor.tabSize": 4,
+  "typescript.updateImportsOnFileMove.enabled": "always"
+}
