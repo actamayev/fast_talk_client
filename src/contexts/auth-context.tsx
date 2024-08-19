@@ -27,10 +27,6 @@ class AuthClass {
 			localStorage.removeItem("Access Token")
 		}
 	})
-
-	public logout() {
-		this.setAccessToken(null, true)
-	}
 }
 
 const AuthContext = createContext(new AuthClass())
