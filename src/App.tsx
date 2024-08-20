@@ -6,10 +6,10 @@ import Missing from "./pages/missing"
 import LoginPage from "./pages/auth/login"
 import RegisterPage from "./pages/auth/register"
 
-import useLogoutListenerUseEffect from "./hooks/logout-listener-use-effect"
-import useGetAuthDataFromStorage from "./hooks/auth/get-auth-data-from-storage"
 import useRedirectUnknownUser from "./hooks/redirect/redirect-unknown-user"
+import useLogoutListenerUseEffect from "./hooks/logout-listener-use-effect"
 import useWebSocketSetupUseEffect from "./hooks/web-socket-setup-use-effect"
+import useGetAuthDataFromStorage from "./hooks/auth/get-auth-data-from-storage"
 
 function App() {
 	const getAuthDataFromStorage = useGetAuthDataFromStorage()

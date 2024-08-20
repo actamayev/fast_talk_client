@@ -9,11 +9,7 @@ export default function useRedirectUnknownUser (): void  {
 	const navigate = useTypedNavigate()
 
 	useEffect(() => {
-		if (
-			authClass.isLoggedIn === true ||
-			location.pathname === "/login" ||
-			location.pathname === "/register"
-		) return
+		if (authClass.isLoggedIn === true) return
 		navigate("/login")
 	}, [authClass.isLoggedIn, location.pathname, navigate])
 }
