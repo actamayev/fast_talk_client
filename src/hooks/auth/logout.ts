@@ -11,6 +11,6 @@ export default function useLogout(): () => void {
 	return useCallback((): void => {
 		authClass.logout()
 		fastTalkApiClient.logout()
-		navigate("/")
+		navigate("/login")
 	}, [authClass, fastTalkApiClient, navigate])
 }
