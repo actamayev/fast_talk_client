@@ -4,6 +4,7 @@ import { createContext, useContext, useMemo } from "react"
 
 class AuthClass {
 	private _accessToken: string | null = null
+	public socket: WebSocket | null = null
 
 	constructor() {
 		makeAutoObservable(this)
@@ -27,6 +28,17 @@ class AuthClass {
 			localStorage.removeItem("Access Token")
 		}
 	})
+
+	public setSocket = action((): WebSocket | undefined => {
+		if (this.isLoggedIn === false) return undefined
+		this.socket = new WebSocket(`ws://localhost:8080/ws/?token=${this._accessToken}`)
+		return this.socket
+	})
+
+	public logout() {
+		this.setAccessToken(null, true)
+		this.socket = null
+	}
 }
 
 const AuthContext = createContext(new AuthClass())

@@ -6,7 +6,7 @@ import AuthTemplate from "../auth-template"
 import SubLoginInfo from "./sub-login-info"
 import PasswordInput from "./password-input"
 import useLoginSubmit from "../../hooks/auth/login-submit"
-import useRedirectKnownUser from "../../hooks/redirect-known-user"
+import useRedirectKnownUser from "../../hooks/redirect/redirect-known-user"
 
 interface Props {
 	whereToNavigate: PageNames

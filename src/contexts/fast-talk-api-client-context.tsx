@@ -8,6 +8,16 @@ class FastTalkApiClient {
 
 	constructor() {
 	}
+
+	private initializeServices() {
+		this.httpClient = new FastTalkHttpClient()
+		this.authDataService = new AuthDataService(this.httpClient)
+	}
+
+	public logout() {
+		this.httpClient.accessToken = null
+		this.initializeServices()
+	}
 }
 
 const FastTalkApiClientContext = createContext(new FastTalkApiClient())

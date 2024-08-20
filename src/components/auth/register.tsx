@@ -8,7 +8,7 @@ import UsernameInput from "./username-input"
 import ConfirmPassword from "./confirm-password"
 import SubRegisterInfo from "./sub-register-info"
 import useRegisterSubmit from "../../hooks/auth/register-submit"
-import useRedirectKnownUser from "../../hooks/redirect-known-user"
+import useRedirectKnownUser from "../../hooks/redirect/redirect-known-user"
 
 interface Props {
 	whereToNavigate: PageNames
