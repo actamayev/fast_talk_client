@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { observer } from "mobx-react"
 import Button from "../../components/button"
 import ErrorMessage from "../../components/error-message"
 import AuthTemplate from "../../components/auth-template"
@@ -9,7 +10,7 @@ import SubLoginInfo from "../../components/auth/sub-login-info"
 import PasswordInput from "../../components/auth/password-input"
 import useRedirectKnownUser from "../../hooks/redirect/redirect-known-user"
 
-export default function LoginPage() {
+function LoginPage() {
 	useRedirectKnownUser()
 	const [loginInformation, setLoginInformation] = useState<LoginCredentials>({
 		contact: "",
@@ -54,3 +55,5 @@ export default function LoginPage() {
 		</div>
 	)
 }
+
+export default observer(LoginPage)

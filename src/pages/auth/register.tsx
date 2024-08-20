@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { observer } from "mobx-react"
 import Button from "../../components/button"
 import ErrorMessage from "../../components/error-message"
 import AuthTemplate from "../../components/auth-template"
@@ -11,7 +12,7 @@ import ConfirmPassword from "../../components/auth/confirm-password"
 import SubRegisterInfo from "../../components/auth/sub-register-info"
 import useRedirectKnownUser from "../../hooks/redirect/redirect-known-user"
 
-export default function RegisterPage() {
+function RegisterPage() {
 	useRedirectKnownUser()
 	const [registerInformation, setRegisterInformation] = useState<RegisterCredentials>({
 		email: "",
@@ -69,3 +70,5 @@ export default function RegisterPage() {
 		</div>
 	)
 }
+
+export default observer(RegisterPage)
