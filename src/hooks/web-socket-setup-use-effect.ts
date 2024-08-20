@@ -30,5 +30,6 @@ export default function useWebSocketSetupUseEffect (): void  {
 		return () => {
 			socket.close()
 		}
-	}, [authClass])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [authClass.isLoggedIn])
 }

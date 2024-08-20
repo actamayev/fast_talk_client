@@ -37,6 +37,7 @@ class AuthClass {
 
 	public logout() {
 		this.setAccessToken(null, true)
+		this.socket?.close()
 		this.socket = null
 	}
 }
