@@ -8,7 +8,6 @@ import useSetDataAfterLoginOrRegister from "./set-data-after-login-or-register"
 import { useApiClientContext } from "../../contexts/fast-talk-api-client-context"
 
 export default function useLoginSubmit (
-	whereToNavigate: PageNames,
 	loginInformation: LoginCredentials,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void
@@ -33,11 +32,11 @@ export default function useLoginSubmit (
 				return
 			}
 			setDataAfterLogin(response.data)
-			navigate(whereToNavigate)
+			navigate("/")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to login")
 		} finally {
 			setLoading(false)
 		}
-	}, [fastTalkApiClient.authDataService, loginInformation, navigate, setDataAfterLogin, setError, setLoading, whereToNavigate])
+	}, [fastTalkApiClient.authDataService, loginInformation, navigate, setDataAfterLogin, setError, setLoading])
 }
