@@ -10,26 +10,30 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 	const authClass = useAuthContext()
 	const fastTalkApiClient = useApiClientContext()
 	const chatsClass = useChatsContext()
-	const hasRetrievedRef = useRef(false)
+	const hasRetrievedRefs = useRef<{ [key: string]: boolean }>({})
 
 	// eslint-disable-next-line complexity
 	const retrieveMessagesFromChat =  useCallback(async () => {
 		try {
 			if (
 				_.isUndefined(friendUsername) ||
-				hasRetrievedRef.current ||
 				authClass.isLoggedIn === false ||
 				_.isNull(authClass.username) ||
 				chatsClass.areChatsEmpty === true
 			) return
 
-			const existingChat = chatsClass.contextForChatByFriendUsername(removeLeadingAt(friendUsername))
+			const normalizedUsername = removeLeadingAt(friendUsername)
+
+			// Check if messages have already been retrieved for this username
+			if (hasRetrievedRefs.current[normalizedUsername]) return
+
+			const existingChat = chatsClass.contextForChatByFriendUsername(normalizedUsername)
 			if (_.isUndefined(existingChat) || !_.isEmpty(existingChat.messagesArray)) return
 
-			hasRetrievedRef.current = true
+			hasRetrievedRefs.current[normalizedUsername] = true
 			const chatsListResponse = await fastTalkApiClient.chatDataService.retrieveChatMessages(existingChat.chatId)
 			if (!_.isEqual(chatsListResponse.status, 200) || isNonSuccessResponse(chatsListResponse.data)) {
-				hasRetrievedRef.current = false
+				hasRetrievedRefs.current[normalizedUsername] = false
 				return
 			}
 
@@ -53,7 +57,8 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 			}
 		} catch (error) {
 			console.error(error)
-			hasRetrievedRef.current = false
+			if (_.isUndefined(friendUsername)) return
+			hasRetrievedRefs.current[removeLeadingAt(friendUsername)] = false
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authClass.isLoggedIn, authClass.username, chatsClass, chatsClass.areChatsEmpty, fastTalkApiClient.chatDataService, friendUsername])

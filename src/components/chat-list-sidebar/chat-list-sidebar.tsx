@@ -2,13 +2,13 @@ import { observer } from "mobx-react"
 import SingleChatItem from "./single-chat-item"
 import LogoutButton from "../auth/logout-button"
 import { useAuthContext } from "../../contexts/auth-context"
-import { useChatsContext } from "../../contexts/chat-context"
+import useChatsListOrder from "../../hooks/chat/chats-list-order"
 import useRetrieveChatsListUseEffect from "../../hooks/chat/retrieve-chats-list-use-effect"
 import useRetrievePersonalInfoUseEffect from "../../hooks/auth/retrieve-personal-info-use-effect"
 
 function ChatListSidebar() {
 	const authClass = useAuthContext()
-	const chatsClass = useChatsContext()
+	const chatsListOrder = useChatsListOrder()
 	useRetrieveChatsListUseEffect()
 	useRetrievePersonalInfoUseEffect()
 
@@ -18,7 +18,7 @@ function ChatListSidebar() {
 				Chats
 			</div>
 			<div className="flex-1 overflow-y-auto">
-				{chatsClass.chatsArray.map(chat => (
+				{chatsListOrder.map(chat => (
 					<SingleChatItem key={chat.chatId} chat={chat} />
 				))}
 			</div>

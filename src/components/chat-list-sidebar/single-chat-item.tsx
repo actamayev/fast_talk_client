@@ -1,6 +1,7 @@
 import _ from "lodash"
-import { useCallback } from "react"
 import { observer } from "mobx-react"
+import { useCallback, useMemo } from "react"
+import { useLocation } from "react-router-dom"
 import ChatClass from "../../classes/chat-class"
 import useDateFormatter from "../../hooks/date-formatter"
 import useTypedNavigate from "../../hooks/navigate/typed-navigate"
@@ -14,14 +15,22 @@ function SingleChatItem(props: Props) {
 	const { chat } = props
 	const dateFormatter = useDateFormatter()
 	const navigate = useTypedNavigate()
+	const location = useLocation()
 
 	const navigateToChat = useCallback(() => {
 		navigate(`/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`)
 	}, [chat.friendDetails.username, navigate])
 
+	const backgroundColor = useMemo(() => {
+		if (location.pathname === `/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`) {
+			return "bg-gray-200"
+		}
+		return "hover:bg-gray-200 cursor-pointer"
+	}, [chat.friendDetails.username, location.pathname])
+
 	return (
 		<div
-			className="flex items-start p-4 border-b border-gray-300 hover:bg-gray-200 cursor-pointer"
+			className={`flex items-start p-4 border-b border-gray-300 ${backgroundColor}`}
 			onClick={navigateToChat}
 		>
 			<div className="flex flex-col w-full">
