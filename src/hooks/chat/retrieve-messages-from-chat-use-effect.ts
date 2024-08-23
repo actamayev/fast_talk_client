@@ -12,18 +12,17 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 	const chatsClass = useChatsContext()
 	const hasRetrievedRef = useRef(false)
 
-	// TODO: This doesn't run after reloading the page
 	// eslint-disable-next-line complexity
 	const retrieveMessagesFromChat =  useCallback(async () => {
 		try {
 			if (
 				_.isUndefined(friendUsername) ||
 				hasRetrievedRef.current ||
-				authClass.isLoggedIn === false
+				authClass.isLoggedIn === false ||
+				chatsClass.areChatsEmpty === true
 			) return
 
 			const existingChat = chatsClass.contextForChatByFriendUsername(removeLeadingAt(friendUsername))
-			console.log("is existing chat undefined", _.isUndefined(existingChat))
 			if (_.isUndefined(existingChat) || !_.isEmpty(existingChat.messagesArray)) return
 
 			hasRetrievedRef.current = true
@@ -56,7 +55,7 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 			hasRetrievedRef.current = false
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [authClass.isLoggedIn, authClass.username, chatsClass.chatsArray, fastTalkApiClient.chatDataService, friendUsername])
+	}, [authClass.isLoggedIn, authClass.username, chatsClass, chatsClass.areChatsEmpty, fastTalkApiClient.chatDataService, friendUsername])
 
 	useEffect(() => {
 		void retrieveMessagesFromChat()

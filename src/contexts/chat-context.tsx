@@ -12,6 +12,10 @@ class ChatsClass {
 		})
 	}
 
+	get areChatsEmpty(): boolean {
+		return _.isEmpty(this.chatsArray)
+	}
+
 	public contextForChat = action((chatId: number): ChatClass | undefined => {
 		return this.chatsArray.find(chat => chat.chatId === chatId)
 	})
