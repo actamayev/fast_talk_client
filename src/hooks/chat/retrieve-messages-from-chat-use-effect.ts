@@ -19,6 +19,7 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 				_.isUndefined(friendUsername) ||
 				hasRetrievedRef.current ||
 				authClass.isLoggedIn === false ||
+				_.isNull(authClass.username) ||
 				chatsClass.areChatsEmpty === true
 			) return
 
