@@ -9,7 +9,7 @@ function Home() {
 		<>
 			<PageHelmet pageTitle="/" />
 			<div className="text-center">
-				Home
+				No Chat Selected
 			</div>
 		</>
 	)

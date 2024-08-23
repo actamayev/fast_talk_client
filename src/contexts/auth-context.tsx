@@ -5,6 +5,7 @@ import { createContext, useContext, useMemo } from "react"
 class AuthClass {
 	private _accessToken: string | null = null
 	public socket: WebSocket | null = null
+	public username: string | null = null
 
 	constructor() {
 		makeAutoObservable(this)
@@ -35,8 +36,13 @@ class AuthClass {
 		return this.socket
 	})
 
+	public setUsername = action((newUsername: string): void => {
+		this.username = newUsername
+	})
+
 	public logout() {
 		this.setAccessToken(null, true)
+		this.username = null
 		this.socket?.close()
 		this.socket = null
 	}

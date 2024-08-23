@@ -16,6 +16,13 @@ declare global {
 		"/chat"
 
 	type AtPrefixedString = string & { __brand: "AtPrefixedString" }
+
+	type RustDate = string & { __brand: "RustDate" }
+
+	interface TimestampsInterface {
+		createdAt: RustDate
+		updatedAt: RustDate
+	}
 }
 
 export {}

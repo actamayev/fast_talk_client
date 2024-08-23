@@ -18,4 +18,10 @@ export default class AuthDataService {
 			`${this.pathHeader}/register`, { ...registerInformation }, { headers: { "No-Auth-Required": "true" }}
 		)
 	}
+
+	async retrievePersonalInfo(): Promise<AxiosResponse<PersonalInfoResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.get<PersonalInfoResponse | NonSuccessResponse>(
+			`${this.pathHeader}/retrieve-personal-info`
+		)
+	}
 }

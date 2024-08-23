@@ -1,24 +1,24 @@
 import _ from "lodash"
 import { useEffect } from "react"
 import { useAuthContext } from "../contexts/auth-context"
+import useAddSocketMessage from "./chat/add-socket-message"
 
 export default function useWebSocketSetupUseEffect (): void  {
 	const authClass = useAuthContext()
+	const addSocketMessage = useAddSocketMessage()
 
 	useEffect(() => {
 		const socket = authClass.setSocket()
 		if (_.isUndefined(socket)) return
 
 		// Handle incoming messages
-		socket.onmessage = (event): void => {
-			const newMessage = event.data
-			console.log(newMessage)
-			// setMessages((prevMessages) => [...prevMessages, newMessage])
+		socket.onmessage = (event: MessageEvent<string>): void => {
+			addSocketMessage(event.data)
 		}
 
 		// Handle WebSocket close event
 		socket.onclose = (): void => {
-			console.log("WebSocket connection closed")
+			console.info("WebSocket connection closed")
 		}
 
 		// Handle WebSocket errors
