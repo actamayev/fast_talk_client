@@ -19,6 +19,7 @@ function SingleChatItem(props: Props) {
 		navigate(`/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`)
 	}, [chat.friendDetails.username, navigate])
 
+	// TODO: The date formatting is incorrect (could be the wway the date is being saved in rust)
 	return (
 		<div
 			className="flex items-start p-4 border-b border-gray-300 hover:bg-gray-200 cursor-pointer"

@@ -12,6 +12,7 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 	const chatsClass = useChatsContext()
 	const hasRetrievedRef = useRef(false)
 
+	// TODO: This doesn't run after reloading the page
 	// eslint-disable-next-line complexity
 	const retrieveMessagesFromChat =  useCallback(async () => {
 		try {
