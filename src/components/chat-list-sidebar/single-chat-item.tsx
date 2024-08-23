@@ -13,7 +13,7 @@ function SingleChatItem(props: Props) {
 		<div className="flex items-start p-4 border-b border-gray-300 hover:bg-gray-200 cursor-pointer">
 			<div className="flex flex-col">
 				<span className="font-semibold text-gray-800">
-					{chat.friendDetails.username}
+					@{chat.friendDetails.username}
 				</span>
 				<span className="text-sm text-gray-600 truncate">
 					{_.isNull(chat.lastMessage) ? (
