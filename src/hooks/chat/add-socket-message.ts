@@ -2,12 +2,12 @@ import _ from "lodash"
 import { useCallback } from "react"
 import { useChatsContext } from "../../contexts/chat-context"
 
-export default function useAddSocketMessage(): (event: SocketMessage) => void  {
+export default function useAddSocketMessage(): (event: string) => void  {
 	const chatsClass = useChatsContext()
 
-	return useCallback((newMessage: SocketMessage) => {
+	return useCallback((newMessageRaw: string) => {
 		try {
-			console.log(newMessage)
+			const newMessage = JSON.parse(newMessageRaw) as SocketMessage
 			let existingChat = chatsClass.contextForChat(newMessage.chat_id)
 
 			if (_.isUndefined(existingChat)) {

@@ -22,7 +22,7 @@ export default class ChatClass {
 	public draftMessage: string = ""
 
 	public contextForPrivateMessage = action((messageId: number): MessageData | undefined => {
-		return this.messagesArray.find(message => message.messageId = messageId)
+		return this.messagesArray.find(message => message.messageId === messageId)
 	})
 
 	public addMessageToChat = action((
@@ -30,7 +30,7 @@ export default class ChatClass {
 		setLatestMessage: boolean,
 		didUserSend: boolean
 	): void => {
-		if (this.contextForPrivateMessage(messageData.messageId)) return
+		if (!_.isUndefined(this.contextForPrivateMessage(messageData.messageId))) return
 
 		this.messagesArray.push(messageData)
 
@@ -38,14 +38,6 @@ export default class ChatClass {
 
 		if (setLatestMessage === false) return
 		this.setLastMessage(messageData, didUserSend)
-	})
-
-	public updateMessageInChat = action((privateMessageId: number, messageText: string): void => {
-		const chatMessage = this.contextForPrivateMessage(privateMessageId)
-		if (_.isUndefined(chatMessage)) return
-
-		chatMessage.text = messageText
-		chatMessage.updatedAt = new Date()
 	})
 
 	private setLastMessage(

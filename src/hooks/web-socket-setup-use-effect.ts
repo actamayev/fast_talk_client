@@ -12,13 +12,13 @@ export default function useWebSocketSetupUseEffect (): void  {
 		if (_.isUndefined(socket)) return
 
 		// Handle incoming messages
-		socket.onmessage = (event: MessageEvent<SocketMessage>): void => {
+		socket.onmessage = (event: MessageEvent<string>): void => {
 			addSocketMessage(event.data)
 		}
 
 		// Handle WebSocket close event
 		socket.onclose = (): void => {
-			console.log("WebSocket connection closed")
+			console.info("WebSocket connection closed")
 		}
 
 		// Handle WebSocket errors

@@ -5,6 +5,7 @@ import ChatClass from "../classes/chat-class"
 
 class ChatsClass {
 	public chatsArray: ChatClass[] = []
+	public isRetrievingChats: boolean = false
 
 	constructor() {
 		makeObservable(this, {

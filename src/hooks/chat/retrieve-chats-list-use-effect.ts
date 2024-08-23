@@ -12,6 +12,8 @@ export default function useRetrieveChatsListUseEffect(): void  {
 
 	const retrieveChatsListCallback = useCallback(async () => {
 		try {
+			if (chatsClass.isRetrievingChats === true) return
+			chatsClass.isRetrievingChats = true
 			const chatsListResponse = await fastTalkApiClient.chatDataService.retrieveChatsList()
 			if (!_.isEqual(chatsListResponse.status, 200) || isNonSuccessResponse(chatsListResponse.data)) {
 				throw Error("Unable to retrieve chats list")
@@ -19,6 +21,8 @@ export default function useRetrieveChatsListUseEffect(): void  {
 			chatsClass.setRetrievedChats(chatsListResponse.data)
 		} catch (error) {
 			console.error(error)
+		} finally {
+			chatsClass.isRetrievingChats = false
 		}
 	}, [chatsClass, fastTalkApiClient.chatDataService])
 

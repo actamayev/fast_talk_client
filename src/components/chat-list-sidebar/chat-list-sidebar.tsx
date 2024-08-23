@@ -12,10 +12,7 @@ function ChatListSidebar() {
 	return (
 		<div className="flex flex-col w-72 bg-gray-100 border-l border-gray-300 fixed right-0 h-full overflow-y-auto">
 			{chatsClass.chatsArray.map(chat => (
-				<SingleChatItem
-					key={chat.chatId}
-					chat={chat}
-				/>
+				<SingleChatItem key={chat.chatId} chat={chat} />
 			))}
 		</div>
 	)
