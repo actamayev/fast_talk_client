@@ -1,6 +1,7 @@
 import { observer } from "mobx-react"
 import { Routes, Route } from "react-router-dom"
 
+import Chat from "./pages/chat"
 import Home from "./pages/home"
 import Missing from "./pages/missing"
 import LoginPage from "./pages/auth/login"
@@ -21,6 +22,7 @@ function App() {
 			<Route path="/" element={<Home />} />
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="/register" element={<RegisterPage />} />
+			<Route path="/c/:friendUsername" element={<Chat />} />
 			<Route path="*" element={<Missing />} />
 		</Routes>
 	)

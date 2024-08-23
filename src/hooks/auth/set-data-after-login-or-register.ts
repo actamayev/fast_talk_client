@@ -9,6 +9,6 @@ export default function useSetDataAfterLoginOrRegister(): (authData: LoginOrRegi
 	return useCallback((authData: LoginOrRegisterSuccess): void => {
 		fastTalkApiClient.httpClient.accessToken = authData.access_token
 		authClass.setAccessToken(authData.access_token, true)
-		authClass.username = authData.username
+		authClass.setUsername(authData.username)
 	}, [authClass, fastTalkApiClient.httpClient])
 }

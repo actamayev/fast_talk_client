@@ -1,7 +1,10 @@
 import _ from "lodash"
+import { useCallback } from "react"
 import { observer } from "mobx-react"
 import ChatClass from "../../classes/chat-class"
 import useDateFormatter from "../../hooks/date-formatter"
+import useTypedNavigate from "../../hooks/navigate/typed-navigate"
+import { addDefiniteLeadingAt } from "../../utils/leading-at-operations"
 
 interface Props {
 	chat: ChatClass
@@ -10,9 +13,17 @@ interface Props {
 function SingleChatItem(props: Props) {
 	const { chat } = props
 	const dateFormatter = useDateFormatter()
+	const navigate = useTypedNavigate()
+
+	const navigateToChat = useCallback(() => {
+		navigate(`/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`)
+	}, [chat.friendDetails.username, navigate])
 
 	return (
-		<div className="flex items-start p-4 border-b border-gray-300 hover:bg-gray-200 cursor-pointer">
+		<div
+			className="flex items-start p-4 border-b border-gray-300 hover:bg-gray-200 cursor-pointer"
+			onClick={navigateToChat}
+		>
 			<div className="flex flex-col w-full">
 				<span className="font-semibold text-gray-800">
 					@{chat.friendDetails.username}

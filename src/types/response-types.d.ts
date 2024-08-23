@@ -13,6 +13,10 @@ declare global {
 		username: string
 	}
 
+	type PersonalInfoResponse = {
+		username: string
+	}
+
 	//Chat Responses:
 	type RetrievedChatsList = {
 		chat_id: number

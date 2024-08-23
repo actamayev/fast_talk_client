@@ -1,27 +1,36 @@
 import _ from "lodash"
-import { useCallback } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useAuthContext } from "../../contexts/auth-context"
 import { useChatsContext } from "../../contexts/chat-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
+import { removeLeadingAt } from "../../utils/leading-at-operations"
 import { useApiClientContext } from "../../contexts/fast-talk-api-client-context"
 
-export default function useRetrieveMessagesFromChatUseEffect(): (chatId: number) => Promise<void>  {
+export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtPrefixedString | undefined): void  {
 	const authClass = useAuthContext()
 	const fastTalkApiClient = useApiClientContext()
 	const chatsClass = useChatsContext()
+	const hasRetrievedRef = useRef(false)
 
-	return useCallback(async (chatId: number) => {
+	// eslint-disable-next-line complexity
+	const retrieveMessagesFromChat =  useCallback(async () => {
 		try {
-			const chatsListResponse = await fastTalkApiClient.chatDataService.retrieveChatMessages(chatId)
-			if (!_.isEqual(chatsListResponse.status, 200) || isNonSuccessResponse(chatsListResponse.data)) {
-				throw Error("Unable to retrieve chats list")
-			}
-			const existingChat = chatsClass.contextForChat(chatId)
 			if (
-				_.isUndefined(existingChat) ||
-				_.isNull(existingChat.friendDetails) ||
-				!_.isEmpty(existingChat.messagesArray)
+				_.isUndefined(friendUsername) ||
+				hasRetrievedRef.current ||
+				authClass.isLoggedIn === false
 			) return
+
+			const existingChat = chatsClass.contextForChatByFriendUsername(removeLeadingAt(friendUsername))
+			console.log("is existing chat undefined", _.isUndefined(existingChat))
+			if (_.isUndefined(existingChat) || !_.isEmpty(existingChat.messagesArray)) return
+
+			hasRetrievedRef.current = true
+			const chatsListResponse = await fastTalkApiClient.chatDataService.retrieveChatMessages(existingChat.chatId)
+			if (!_.isEqual(chatsListResponse.status, 200) || isNonSuccessResponse(chatsListResponse.data)) {
+				hasRetrievedRef.current = false
+				return
+			}
 
 			for (const message of chatsListResponse.data) {
 				const senderDetails: SocialDetails = {
@@ -32,7 +41,7 @@ export default function useRetrieveMessagesFromChatUseEffect(): (chatId: number)
 					senderDetails.username = authClass.username
 				}
 				const messageData: MessageData = {
-					chatId,
+					chatId: existingChat.chatId,
 					messageId: message.message_id,
 					text: message.message_text,
 					createdAt: message.sent_time,
@@ -43,6 +52,12 @@ export default function useRetrieveMessagesFromChatUseEffect(): (chatId: number)
 			}
 		} catch (error) {
 			console.error(error)
+			hasRetrievedRef.current = false
 		}
-	}, [authClass.username, chatsClass, fastTalkApiClient.chatDataService])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [authClass.isLoggedIn, authClass.username, chatsClass.chatsArray, fastTalkApiClient.chatDataService, friendUsername])
+
+	useEffect(() => {
+		void retrieveMessagesFromChat()
+	}, [retrieveMessagesFromChat])
 }

@@ -5,7 +5,6 @@ import ChatClass from "../classes/chat-class"
 
 class ChatsClass {
 	public chatsArray: ChatClass[] = []
-	public isRetrievingChats: boolean = false
 
 	constructor() {
 		makeObservable(this, {
@@ -17,12 +16,12 @@ class ChatsClass {
 		return this.chatsArray.find(chat => chat.chatId === chatId)
 	})
 
-	public checkIfChatWithFriendExists = action((friendId: number): number | null => {
+	public contextForChatByFriendUsername = action((friendUsername: string): ChatClass | undefined => {
 		for (const chat of this.chatsArray) {
-			if (chat.friendDetails.userId === friendId) return chat.chatId
+			if (chat.friendDetails.username === friendUsername) return chat
 		}
 
-		return null
+		return undefined
 	})
 
 	public setRetrievedChats = action((chats: RetrievedChatsList[]): void => {
@@ -64,8 +63,12 @@ class ChatsClass {
 		return chatClass
 	})
 
-	public logout() {
+	private clearChatsArray = action(() => {
 		this.chatsArray = []
+	})
+
+	public logout() {
+		this.clearChatsArray()
 	}
 }
 

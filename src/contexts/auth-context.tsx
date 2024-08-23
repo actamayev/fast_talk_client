@@ -36,6 +36,10 @@ class AuthClass {
 		return this.socket
 	})
 
+	public setUsername = action((newUsername: string): void => {
+		this.username = newUsername
+	})
+
 	public logout() {
 		this.setAccessToken(null, true)
 		this.username = ""
