@@ -36,11 +36,11 @@ class ChatsClass {
 				lastMessage: {
 					text: chat.last_message,
 					didUserSend: chat.was_last_message_sent_by_user,
-					createdAt: new Date(chat.last_message_time),
-					updatedAt: new Date(chat.last_message_time),
+					createdAt: chat.last_message_time,
+					updatedAt: chat.last_message_time,
 				},
-				createdAt: new Date(chat.chat_created_at),
-				updatedAt: new Date(chat.last_message_time),
+				createdAt: chat.last_message_time,
+				updatedAt: chat.last_message_time
 			}
 			this.setSingleChat(chatData)
 		}
@@ -55,8 +55,9 @@ class ChatsClass {
 
 		// Sort the array by lastMessage.updatedAt
 		this.chatsArray.sort((a, b) => {
-			const dateA = a.lastMessage?.updatedAt || new Date(0)
-			const dateB = b.lastMessage?.updatedAt || new Date(0)
+			// Use a default date in case lastMessage?.updatedAt is undefined
+			const dateA = new Date(a.lastMessage?.updatedAt || 0)
+			const dateB = new Date(b.lastMessage?.updatedAt || 0)
 			return dateA.getTime() - dateB.getTime()
 		})
 

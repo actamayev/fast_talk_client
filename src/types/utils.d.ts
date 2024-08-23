@@ -17,9 +17,11 @@ declare global {
 
 	type AtPrefixedString = string & { __brand: "AtPrefixedString" }
 
+	type RustDate = string & { __brand: "RustDate" }
+
 	interface TimestampsInterface {
-		createdAt: Date
-		updatedAt: Date
+		createdAt: RustDate
+		updatedAt: RustDate
 	}
 }
 
