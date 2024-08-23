@@ -10,6 +10,43 @@ declare global {
 	//Auth Responses:
 	type LoginOrRegisterSuccess = {
 		access_token: string
+		username: string
+	}
+
+	//Chat Responses:
+	type RetrievedChatsList = {
+		chat_id: number
+		friend_username: string
+		friend_user_id: number
+		last_message: string
+		last_message_time: Date
+		was_last_message_sent_by_user: boolean
+		chat_created_at: Date
+	}
+
+	type CreateChatResponse = {
+		chat_id: number
+	}
+
+	type SendMessageResponse = {
+		message_id: number
+	}
+
+	type ChatMessage = {
+		message_id: number
+		did_user_send: boolean
+		sender_user_id: number
+		message_text: string
+		sent_time: Date
+	}
+
+	interface SocketMessage {
+		chat_id: number
+		friend_username: string
+		friend_user_id: number
+		message_text: string
+		message_id: number
+		sent_time: Date
 	}
 }
 

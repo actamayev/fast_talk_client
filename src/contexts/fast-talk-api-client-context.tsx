@@ -1,10 +1,12 @@
 import { createContext, useContext, useMemo } from "react"
 import AuthDataService from "../services/auth-data-service"
+import ChatDataService from "../services/chat-data-service"
 import FastTalkHttpClient from "../classes/fast-talk-http-client"
 
 class FastTalkApiClient {
 	public httpClient: FastTalkHttpClient = new FastTalkHttpClient()
 	public authDataService: AuthDataService = new AuthDataService(this.httpClient)
+	public chatDataService: ChatDataService = new ChatDataService(this.httpClient)
 
 	constructor() {
 	}
@@ -12,6 +14,7 @@ class FastTalkApiClient {
 	private initializeServices() {
 		this.httpClient = new FastTalkHttpClient()
 		this.authDataService = new AuthDataService(this.httpClient)
+		this.chatDataService = new ChatDataService(this.httpClient)
 	}
 
 	public logout() {
