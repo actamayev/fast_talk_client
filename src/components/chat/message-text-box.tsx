@@ -24,7 +24,7 @@ function MessageTextBox (props: Props) {
 			onKeyDown={handleKeyDown}
 			placeholder="Type a message..."
 			className="w-full p-2 border-gray-300 rounded focus:outline-none"
-			maxLength={1000}
+			maxLength={69}
 		/>
 	)
 }
