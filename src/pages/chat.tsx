@@ -2,6 +2,7 @@ import _ from "lodash"
 import Missing from "./missing"
 import { observer } from "mobx-react"
 import { useParams } from "react-router-dom"
+import MessageBubble from "../components/message-bubble"
 import { useAuthContext } from "../contexts/auth-context"
 import { useChatsContext } from "../contexts/chat-context"
 import BasicHelmet from "../components/helmet/basic-helmet"
@@ -27,9 +28,10 @@ function Chat() {
 				url={`http://localhost:3000/c/${friendUsername}`}
 			/>
 			{chat.messagesArray.map(singleMessage => (
-				<div key={singleMessage.messageId}>
-					{singleMessage.text}
-				</div>
+				<MessageBubble
+					key={singleMessage.messageId}
+					message={singleMessage}
+				/>
 			))}
 		</>
 	)
