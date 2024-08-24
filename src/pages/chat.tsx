@@ -36,7 +36,7 @@ function Chat() {
 				url={`http://localhost:3000/c/${friendUsername}`}
 			/>
 			<div className="flex flex-col h-screen">
-				<div className="flex-1 px-2 overflow-y-auto">
+				<div className="flex-1 px-2 overflow-y-auto overscroll-contain">
 					{chat.messagesArray.map(singleMessage => (
 						<MessageBubble
 							key={singleMessage.messageId}
