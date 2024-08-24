@@ -1,6 +1,7 @@
-import { useCallback } from "react"
 import { observer } from "mobx-react"
 import { FaArrowUp } from "react-icons/fa"
+import { useLocation } from "react-router-dom"
+import { useCallback, useEffect, useRef } from "react"
 import ChatClass from "../../classes/chat-class"
 import useSendMessage from "../../hooks/chat/send-message"
 
@@ -11,6 +12,13 @@ interface Props {
 function MessageTextBox (props: Props) {
 	const { chat } = props
 	const sendMessage = useSendMessage()
+	const inputRef = useRef<HTMLInputElement>(null)
+	const location = useLocation()
+
+	useEffect(() => {
+		if (!inputRef.current) return
+		inputRef.current.focus()
+	}, [location.pathname])
 
 	const handleKeyDown = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key !== "Enter") return
@@ -25,6 +33,7 @@ function MessageTextBox (props: Props) {
 		<div className="flex items-center space-x-2 pr-1">
 			<input
 				type="text"
+				ref={inputRef}
 				value={chat.draftMessage}
 				onChange={(e) => chat.setDraftMessage(e.target.value)}
 				onKeyDown={handleKeyDown}

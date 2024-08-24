@@ -30,4 +30,10 @@ export default class ChatDataService {
 			`${this.pathHeader}/retrieve-chat-messages/${chatId}`
 		)
 	}
+
+	async searchForUsername(username: string): Promise<AxiosResponse<SearchForUsersResponse | ErrorResponses>> {
+		return await this.httpClient.http.get<SearchForUsersResponse | ErrorResponses>(
+			`${this.pathHeader}/search-for-usernames/${username}`
+		)
+	}
 }

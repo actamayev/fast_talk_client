@@ -52,6 +52,10 @@ declare global {
 		message_id: number
 		sent_time: RustDate
 	}
+
+	type SearchForUsersResponse = {
+		usernames: UsernameSearch[]
+	}
 }
 
 export {}

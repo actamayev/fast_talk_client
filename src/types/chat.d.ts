@@ -21,6 +21,11 @@ declare global {
 		text: string
 		didUserSend: boolean
 	}
+
+	interface UsernameSearch {
+		username: string
+		user_id: number
+	}
 }
 
 export {}

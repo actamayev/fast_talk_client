@@ -1,0 +1,44 @@
+import { useEffect, useRef, useState } from "react"
+import useUsernameSearch from "../../hooks/chat/username-search"
+
+interface Props {
+	closeSearchBox: () => void
+	setUsernameSearchResults: React.Dispatch<React.SetStateAction<UsernameSearch[]>>
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function UsernameSearchBox(props: Props) {
+	const { closeSearchBox, setUsernameSearchResults, setIsLoading } = props
+	const inputRef = useRef<HTMLInputElement>(null)
+	const [usernameToSearchFor, setUsernameToSearchFor] = useState("")
+	const usernameSearch = useUsernameSearch()
+
+	useEffect(() => {
+		if (!inputRef.current) return
+		inputRef.current.focus()
+	}, [])
+
+	useEffect(() => {
+		void usernameSearch(usernameToSearchFor, setIsLoading, setUsernameSearchResults)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [usernameSearch, usernameToSearchFor])
+
+	return (
+		<div className="absolute top-0 left-0 right-0 bg-white shadow-lg p-4 z-10 w-full max-w-lg mx-auto">
+			<input
+				type="text"
+				ref={inputRef}
+				onChange={(e) => setUsernameToSearchFor(e.target.value)}
+				placeholder="Search by username..."
+				className="w-full p-3 border border-gray-300 rounded focus:outline-none text-lg"
+				value={usernameToSearchFor}
+			/>
+			<button
+				onClick={closeSearchBox}
+				className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
+			>
+				&times;
+			</button>
+		</div>
+	)
+}

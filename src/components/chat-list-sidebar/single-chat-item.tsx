@@ -1,10 +1,10 @@
 import _ from "lodash"
+import { useMemo } from "react"
 import { observer } from "mobx-react"
-import { useCallback, useMemo } from "react"
 import { useLocation } from "react-router-dom"
 import ChatClass from "../../classes/chat-class"
 import useDateFormatter from "../../hooks/date-formatter"
-import useTypedNavigate from "../../hooks/navigate/typed-navigate"
+import useNavigateToChat from "../../hooks/navigate/navigate-to-chat"
 import { addDefiniteLeadingAt } from "../../utils/leading-at-operations"
 
 interface Props {
@@ -14,12 +14,8 @@ interface Props {
 function SingleChatItem(props: Props) {
 	const { chat } = props
 	const dateFormatter = useDateFormatter()
-	const navigate = useTypedNavigate()
 	const location = useLocation()
-
-	const navigateToChat = useCallback(() => {
-		navigate(`/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`)
-	}, [chat.friendDetails.username, navigate])
+	const navigateToChat = useNavigateToChat()
 
 	const backgroundColor = useMemo(() => {
 		if (location.pathname === `/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`) {
@@ -31,7 +27,7 @@ function SingleChatItem(props: Props) {
 	return (
 		<div
 			className={`flex items-start p-4 border-b border-gray-300 ${backgroundColor}`}
-			onClick={navigateToChat}
+			onClick={() => navigateToChat(chat.friendDetails.username)}
 		>
 			<div className="flex flex-col w-full">
 				<span className="font-semibold text-gray-800">
