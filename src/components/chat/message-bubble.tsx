@@ -1,20 +1,23 @@
+import { useMemo } from "react"
 import { format } from "date-fns"
 import { observer } from "mobx-react"
-import { useAuthContext } from "../contexts/auth-context"
+import { useAuthContext } from "../../contexts/auth-context"
 
 interface Props {
-	message: MessageData;
+	message: MessageData
 }
 
 function MessageBubble (props: Props) {
 	const { message } = props
 	const authClass = useAuthContext()
 
-	// Check if the message was sent by the current user
-	const isOwnMessage = message.senderDetails.username === authClass.username
+	const isOwnMessage = useMemo(() => {
+		return message.senderDetails.username === authClass.username
+	}, [authClass.username, message.senderDetails.username])
 
-	// Format the message's timestamp
-	const messageTime = format(new Date(message.updatedAt), "h:mm a")
+	const messageTime = useMemo(() => {
+		return format(new Date(message.updatedAt), "h:mm a")
+	}, [message.updatedAt])
 
 	return (
 		<div className={`flex ${isOwnMessage ? "justify-end" : "justify-start"} my-2`}>
