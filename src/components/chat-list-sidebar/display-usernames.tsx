@@ -31,9 +31,9 @@ function DisplayUsernames(props: Props) {
 	if (isLoading === true) return <>Loading...</>
 
 	return (
-		<div className="mt-4 max-h-60 overflow-y-auto bg-white p-2 border border-gray-200 rounded shadow-lg">
+		<div className="mt-4 max-h-60 overflow-y-auto bg-white p-2 border border-zinc-200 rounded shadow-lg">
 			{_.isEmpty(usernameSearchResults) ? (
-				<div className="text-center text-gray-500 p-4">No results found</div>
+				<div className="text-center text-zinc-500 p-4">No results found</div>
 			) : (
 				usernameSearchResults.map((singleUsername) => (
 					<div

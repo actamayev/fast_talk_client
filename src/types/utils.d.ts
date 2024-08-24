@@ -15,6 +15,8 @@ declare global {
 		"/auth" |
 		"/chat"
 
+	type SiteThemes = "light" | "dark"
+
 	type AtPrefixedString = string & { __brand: "AtPrefixedString" }
 
 	type RustDate = string & { __brand: "RustDate" }

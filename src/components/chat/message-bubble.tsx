@@ -23,7 +23,7 @@ function MessageBubble (props: Props) {
 		<div className={`flex ${isOwnMessage ? "justify-end" : "justify-start"} my-2`}>
 			<div
 				className={`max-w-xs md:max-w-md lg:max-w-lg p-1.5 rounded-lg shadow ${
-					isOwnMessage ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+					isOwnMessage ? "bg-blue-500 text-white" : "bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
 				}`}
 			>
 				<div className="whitespace-pre-wrap break-words">{message.text}</div>

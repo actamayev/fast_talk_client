@@ -22,7 +22,7 @@ function Chat() {
 
 	const borderColor = useMemo(() => {
 		if (chat?.draftMessage && chat.draftMessage.length >= 69) return "border-red-500"
-		return "border-gray-300"
+		return "border-zinc-300 dark:border-zinc-700"
 	}, [chat?.draftMessage])
 
 	useEffect(() => {

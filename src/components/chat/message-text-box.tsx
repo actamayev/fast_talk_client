@@ -38,14 +38,15 @@ function MessageTextBox (props: Props) {
 				onChange={(e) => chat.setDraftMessage(e.target.value)}
 				onKeyDown={handleKeyDown}
 				placeholder="Type a message..."
-				className="flex-1 p-2 focus:outline-none"
+				className="flex-1 p-2 focus:outline-none text-zinc-950 dark:text-zinc-200 bg-white dark:bg-zinc-800"
 				maxLength={69}
 			/>
 			{chat.draftMessage && (
-				<div className="flex items-center h-full border-l border-gray-300 pl-1">
+				<div className="flex items-center h-full border-l border-zinc-300 dark:border-zinc-700 pl-1">
 					<button
 						onClick={handleSendClick}
-						className="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white"
+						className="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white
+						dark:bg-white dark:text-black"
 					>
 						<FaArrowUp size={22} />
 					</button>

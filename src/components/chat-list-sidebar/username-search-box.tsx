@@ -24,18 +24,18 @@ export default function UsernameSearchBox(props: Props) {
 	}, [usernameSearch, usernameToSearchFor])
 
 	return (
-		<div className="absolute top-0 left-0 right-0 bg-white shadow-lg p-4 z-10 w-full max-w-lg mx-auto">
+		<div className="absolute top-0 left-0 right-0 bg-white dark:bg-black shadow-lg p-4 z-10 w-full max-w-lg mx-auto">
 			<input
 				type="text"
 				ref={inputRef}
 				onChange={(e) => setUsernameToSearchFor(e.target.value)}
 				placeholder="Search by username..."
-				className="w-full p-3 border border-gray-300 rounded focus:outline-none text-lg"
+				className="w-full p-3 border border-zinc-300 dark:border-zinc-700 rounded focus:outline-none text-lg"
 				value={usernameToSearchFor}
 			/>
 			<button
 				onClick={closeSearchBox}
-				className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
+				className="absolute top-2 right-2 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 text-xl"
 			>
 				&times;
 			</button>

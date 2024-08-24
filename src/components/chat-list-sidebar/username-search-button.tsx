@@ -21,7 +21,7 @@ function UsernameSearchButton() {
 	return (
 		<div className="relative">
 			<HoverOutlineComponent
-				classes="relative flex items-center justify-center text-black"
+				classes="relative flex items-center justify-center text-black dark:text-white"
 				onClickAction={openUsernameSearch}
 			>
 				<RiChatNewLine size={20} />

@@ -22,3 +22,7 @@ export function isErrorResponses(data: any): data is ErrorResponses {
 export function isNumber (value: any): value is number {
 	return typeof value === "number"
 }
+
+export function isValidSiteTheme(value: any): value is SiteThemes {
+	return ["light", "dark"].includes(value)
+}

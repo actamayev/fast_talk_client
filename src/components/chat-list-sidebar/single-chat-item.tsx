@@ -19,21 +19,21 @@ function SingleChatItem(props: Props) {
 
 	const backgroundColor = useMemo(() => {
 		if (location.pathname === `/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`) {
-			return "bg-gray-200"
+			return "bg-zinc-200 dark:bg-zinc-800"
 		}
-		return "hover:bg-gray-200 cursor-pointer"
+		return "hover:bg-zinc-200 cursor-pointer dark:hover:bg-zinc-800"
 	}, [chat.friendDetails.username, location.pathname])
 
 	return (
 		<div
-			className={`flex items-start p-4 border-b border-gray-300 ${backgroundColor}`}
+			className={`flex items-start p-4 border-b border-zinc-300 dark:border-zinc-700 ${backgroundColor}`}
 			onClick={() => navigateToChat(chat.friendDetails.username)}
 		>
 			<div className="flex flex-col w-full">
-				<span className="font-semibold text-gray-800">
+				<span className="font-semibold text-zinc-800 dark:text-zinc-200">
 					@{chat.friendDetails.username}
 				</span>
-				<span className="text-sm text-gray-600 truncate">
+				<span className="text-sm text-zinc-600 dark:text-zinc-400 truncate">
 					{_.isNull(chat.lastMessage) ? (
 						<>No Messages yet</>
 					) : (

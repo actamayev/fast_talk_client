@@ -15,6 +15,7 @@ declare global {
 
 	type PersonalInfoResponse = {
 		username: string
+		defaultSiteTheme: SiteThemes
 	}
 
 	//Chat Responses:
