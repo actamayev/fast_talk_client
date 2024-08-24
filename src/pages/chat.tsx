@@ -42,15 +42,12 @@ function Chat() {
 			/>
 			<div className="flex flex-col h-screen">
 				<div className="flex-1 px-2 overflow-y-auto overscroll-contain">
-					{chat.messagesArray.map(singleMessage => (
-						<MessageBubble
-							key={singleMessage.messageId}
-							message={singleMessage}
-						/>
+					{chat.messagesArray.map((singleMessage) => (
+						<MessageBubble key={singleMessage.messageId} message={singleMessage} />
 					))}
 					<div ref={messagesEndRef} />
 				</div>
-				<div className={`pt-1 border-t ${borderColor}`}>
+				<div className={`sticky bottom-0 left-0 right-0 pt-1 border-t ${borderColor} bg-white`}>
 					<MessageTextBox chat={chat} />
 				</div>
 			</div>

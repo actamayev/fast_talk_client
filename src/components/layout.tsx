@@ -21,7 +21,7 @@ function Layout(props: Props) {
 	}, [location.pathname])
 
 	return (
-		<div className="min-h-screen dark:bg-neutral-900 flex">
+		<div className="dark:bg-neutral-900 flex h-screen">
 			{authClass.isLoggedIn && (
 				<ChatListSidebar />
 			)}

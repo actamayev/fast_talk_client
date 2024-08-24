@@ -16,7 +16,6 @@ export default function useCreateNewChat(): (chat: ChatClass) => Promise<void>  
 			}
 
 			chat.chatId = newChatResponse.data.chat_id
-			console.log(chat.chatId)
 		} catch (error) {
 			console.error(error)
 		}
