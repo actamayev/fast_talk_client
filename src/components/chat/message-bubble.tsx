@@ -26,8 +26,8 @@ function MessageBubble (props: Props) {
 					isOwnMessage ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
 				}`}
 			>
-				<div className="whitespace-pre-wrap">{message.text}</div>
-				<div className={`text-xs mt-1 ${isOwnMessage ? "text-right" : "text-left"}`}>
+				<div className="whitespace-pre-wrap break-words">{message.text}</div>
+				<div className={`text-xs ${isOwnMessage ? "text-right" : "text-left"}`}>
 					{messageTime}
 				</div>
 			</div>

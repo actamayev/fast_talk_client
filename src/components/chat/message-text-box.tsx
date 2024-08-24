@@ -36,9 +36,9 @@ function MessageTextBox (props: Props) {
 				<div className="flex items-center h-full border-l border-gray-300 pl-1">
 					<button
 						onClick={handleSendClick}
-						className="w-10 h-10 flex items-center justify-center rounded-full bg-black text-white"
+						className="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white"
 					>
-						<FaArrowUp size={16} />
+						<FaArrowUp size={22} />
 					</button>
 				</div>
 			)}

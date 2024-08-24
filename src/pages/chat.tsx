@@ -1,8 +1,8 @@
 import _ from "lodash"
 import Missing from "./missing"
 import { observer } from "mobx-react"
-import { useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
+import { useEffect, useMemo, useRef } from "react"
 import { useAuthContext } from "../contexts/auth-context"
 import { useChatsContext } from "../contexts/chat-context"
 import BasicHelmet from "../components/helmet/basic-helmet"
@@ -19,6 +19,11 @@ function Chat() {
 	const messagesEndRef = useRef<HTMLDivElement>(null)
 
 	const chat  = chatsClass.contextForChatByFriendUsername(removeIndefiniteLeadingAt(friendUsername))
+
+	const borderColor = useMemo(() => {
+		if (chat?.draftMessage && chat.draftMessage.length >= 69) return "border-red-500"
+		return "border-gray-300"
+	}, [chat?.draftMessage])
 
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "instant" })
@@ -45,7 +50,7 @@ function Chat() {
 					))}
 					<div ref={messagesEndRef} />
 				</div>
-				<div className="pt-1 border-t border-gray-300">
+				<div className={`pt-1 border-t ${borderColor}`}>
 					<MessageTextBox chat={chat} />
 				</div>
 			</div>
