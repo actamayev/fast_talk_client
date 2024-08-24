@@ -47,7 +47,7 @@ function Chat() {
 					))}
 					<div ref={messagesEndRef} />
 				</div>
-				<div className={`sticky bottom-0 left-0 right-0 pt-1 border-t ${borderColor} bg-white`}>
+				<div className={`sticky bottom-0 left-0 right-0 pt-1 border-t ${borderColor} bg-white dark:bg-neutral-900`}>
 					<MessageTextBox chat={chat} />
 				</div>
 			</div>
