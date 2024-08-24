@@ -11,16 +11,36 @@ export default function useSendMessage(): (chat: ChatClass) => Promise<void>  {
 
 	return useCallback(async (chat: ChatClass) => {
 		try {
-			if (!authClass.isLoggedIn || _.isEmpty(chat.draftMessage.trim())) return
+			if (
+				!authClass.isLoggedIn ||
+				_.isNull(authClass.username) ||
+				_.isEmpty(chat.draftMessage.trim())
+			) return
 
-			const chatsListResponse = await fastTalkApiClient.chatDataService.sendMessage(chat.chatId, chat.draftMessage)
+			const sendMessageResponse = await fastTalkApiClient.chatDataService.sendMessage(chat.chatId, chat.draftMessage)
 
-			if (!_.isEqual(chatsListResponse.status, 200) || isNonSuccessResponse(chatsListResponse.data)) {
+			if (!_.isEqual(sendMessageResponse.status, 200) || isNonSuccessResponse(sendMessageResponse.data)) {
 				return
 			}
+			const messageDataToAdd: MessageData = {
+				chatId: chat.chatId,
+				messageId: sendMessageResponse.data.message_id,
+				text: chat.draftMessage,
+				createdAt: ((new Date()).toString() as RustDate),
+				updatedAt: ((new Date()).toString() as RustDate),
+				senderDetails: {
+					userId: 0,
+					username: authClass.username
+				}
+			}
+			chat.addMessageToChat(
+				messageDataToAdd,
+				true,
+				true
+			)
 			chat.setDraftMessage("")
 		} catch (error) {
 			console.error(error)
 		}
-	}, [authClass.isLoggedIn, fastTalkApiClient.chatDataService])
+	}, [authClass.isLoggedIn, authClass.username, fastTalkApiClient.chatDataService])
 }
