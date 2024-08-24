@@ -29,7 +29,7 @@ function MessageTextBox (props: Props) {
 				onChange={(e) => chat.setDraftMessage(e.target.value)}
 				onKeyDown={handleKeyDown}
 				placeholder="Type a message..."
-				className="flex-1 p-2 rounded focus:outline-none"
+				className="flex-1 p-2 focus:outline-none"
 				maxLength={69}
 			/>
 			{chat.draftMessage && (
