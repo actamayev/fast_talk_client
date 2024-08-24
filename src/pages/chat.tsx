@@ -1,12 +1,13 @@
 import _ from "lodash"
 import Missing from "./missing"
 import { observer } from "mobx-react"
+import { useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
 import MessageBubble from "../components/message-bubble"
 import { useAuthContext } from "../contexts/auth-context"
 import { useChatsContext } from "../contexts/chat-context"
 import BasicHelmet from "../components/helmet/basic-helmet"
-import { removeLeadingAt } from "../utils/leading-at-operations"
+import { removeIndefiniteLeadingAt } from "../utils/leading-at-operations"
 import useRetrieveMessagesFromChatUseEffect from "../hooks/chat/retrieve-messages-from-chat-use-effect"
 
 function Chat() {
@@ -14,11 +15,17 @@ function Chat() {
 	const authClass = useAuthContext()
 	const chatsClass = useChatsContext()
 	useRetrieveMessagesFromChatUseEffect(friendUsername)
+	const messagesEndRef = useRef<HTMLDivElement>(null)
+
+	const chat  = chatsClass.contextForChatByFriendUsername(removeIndefiniteLeadingAt(friendUsername))
+
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({ behavior: "instant" })
+	}, [chat?.messagesArray.length])
+
+	if (_.isUndefined(chat) || _.isUndefined(friendUsername)) return null
 
 	if (authClass.isLoggedIn === false) return <Missing />
-	if (_.isUndefined(friendUsername)) return null
-	const chat  = chatsClass.contextForChatByFriendUsername(removeLeadingAt(friendUsername))
-	if (_.isUndefined(chat)) return null
 
 	return (
 		<>
@@ -27,12 +34,16 @@ function Chat() {
 				description={`Chat with ${friendUsername}`}
 				url={`http://localhost:3000/c/${friendUsername}`}
 			/>
-			{chat.messagesArray.map(singleMessage => (
-				<MessageBubble
-					key={singleMessage.messageId}
-					message={singleMessage}
-				/>
-			))}
+			<div className="p-4 space-y-2 overflow-y-auto">
+				{chat.messagesArray.map(singleMessage => (
+					<MessageBubble
+						key={singleMessage.messageId}
+						message={singleMessage}
+					/>
+				))}
+				{/* Dummy div to act as an anchor for scrolling */}
+				<div ref={messagesEndRef} />
+			</div>
 		</>
 	)
 }

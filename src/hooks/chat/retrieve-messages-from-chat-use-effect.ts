@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useAuthContext } from "../../contexts/auth-context"
 import { useChatsContext } from "../../contexts/chat-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
-import { removeLeadingAt } from "../../utils/leading-at-operations"
+import { removeDefiniteLeadingAt } from "../../utils/leading-at-operations"
 import { useApiClientContext } from "../../contexts/fast-talk-api-client-context"
 
 export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtPrefixedString | undefined): void  {
@@ -22,7 +22,7 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 				chatsClass.areChatsEmpty === true
 			) return
 
-			const normalizedUsername = removeLeadingAt(friendUsername)
+			const normalizedUsername = removeDefiniteLeadingAt(friendUsername)
 
 			// Check if messages have already been retrieved for this username
 			if (hasRetrievedRefs.current[normalizedUsername]) return
@@ -58,7 +58,7 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 		} catch (error) {
 			console.error(error)
 			if (_.isUndefined(friendUsername)) return
-			hasRetrievedRefs.current[removeLeadingAt(friendUsername)] = false
+			hasRetrievedRefs.current[removeDefiniteLeadingAt(friendUsername)] = false
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authClass.isLoggedIn, authClass.username, chatsClass, chatsClass.areChatsEmpty, fastTalkApiClient.chatDataService, friendUsername])

@@ -20,7 +20,8 @@ class ChatsClass {
 		return this.chatsArray.find(chat => chat.chatId === chatId)
 	})
 
-	public contextForChatByFriendUsername = action((friendUsername: string): ChatClass | undefined => {
+	public contextForChatByFriendUsername = action((friendUsername: string | undefined): ChatClass | undefined => {
+		if (_.isUndefined(friendUsername)) return undefined
 		for (const chat of this.chatsArray) {
 			if (chat.friendDetails.username === friendUsername) return chat
 		}
