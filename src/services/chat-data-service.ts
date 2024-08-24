@@ -20,7 +20,7 @@ export default class ChatDataService {
 	}
 
 	async createChat(friendId: number): Promise<AxiosResponse<CreateChatResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.get<CreateChatResponse | NonSuccessResponse>(
+		return await this.httpClient.http.post<CreateChatResponse | NonSuccessResponse>(
 			`${this.pathHeader}/create-chat/${friendId}`
 		)
 	}
