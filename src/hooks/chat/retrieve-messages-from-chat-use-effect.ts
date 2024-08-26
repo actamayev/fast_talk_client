@@ -28,7 +28,11 @@ export default function useRetrieveMessagesFromChatUseEffect(friendUsername: AtP
 			if (hasRetrievedRefs.current[normalizedUsername]) return
 
 			const existingChat = chatsClass.contextForChatByFriendUsername(normalizedUsername)
-			if (_.isUndefined(existingChat) || !_.isEmpty(existingChat.messagesArray)) return
+			if (
+				_.isUndefined(existingChat) ||
+				!_.isEmpty(existingChat.messagesArray) ||
+				existingChat.chatId === 0
+			) return
 
 			hasRetrievedRefs.current[normalizedUsername] = true
 			const chatsListResponse = await fastTalkApiClient.chatDataService.retrieveChatMessages(existingChat.chatId)

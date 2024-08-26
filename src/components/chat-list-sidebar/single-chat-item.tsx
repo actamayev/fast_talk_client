@@ -1,43 +1,38 @@
 import _ from "lodash"
-import { observer } from "mobx-react"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import { useLocation } from "react-router-dom"
 import ChatClass from "../../classes/chat-class"
 import useDateFormatter from "../../hooks/date-formatter"
-import useTypedNavigate from "../../hooks/navigate/typed-navigate"
+import useNavigateToChat from "../../hooks/navigate/navigate-to-chat"
 import { addDefiniteLeadingAt } from "../../utils/leading-at-operations"
 
 interface Props {
 	chat: ChatClass
 }
 
-function SingleChatItem(props: Props) {
+export default function SingleChatItem(props: Props) {
 	const { chat } = props
 	const dateFormatter = useDateFormatter()
-	const navigate = useTypedNavigate()
 	const location = useLocation()
-
-	const navigateToChat = useCallback(() => {
-		navigate(`/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`)
-	}, [chat.friendDetails.username, navigate])
+	const navigateToChat = useNavigateToChat()
 
 	const backgroundColor = useMemo(() => {
 		if (location.pathname === `/c/${addDefiniteLeadingAt(chat.friendDetails.username)}`) {
-			return "bg-gray-200"
+			return "bg-zinc-200 dark:bg-zinc-800"
 		}
-		return "hover:bg-gray-200 cursor-pointer"
+		return "hover:bg-zinc-200 cursor-pointer dark:hover:bg-zinc-800"
 	}, [chat.friendDetails.username, location.pathname])
 
 	return (
 		<div
-			className={`flex items-start p-4 border-b border-gray-300 ${backgroundColor}`}
-			onClick={navigateToChat}
+			className={`flex items-start p-4 border-b border-zinc-300 dark:border-zinc-700 ${backgroundColor}`}
+			onClick={() => navigateToChat(chat.friendDetails.username)}
 		>
 			<div className="flex flex-col w-full">
-				<span className="font-semibold text-gray-800">
+				<span className="font-semibold text-zinc-800 dark:text-zinc-200">
 					@{chat.friendDetails.username}
 				</span>
-				<span className="text-sm text-gray-600 truncate">
+				<span className="text-sm text-zinc-600 dark:text-zinc-400 truncate">
 					{_.isNull(chat.lastMessage) ? (
 						<>No Messages yet</>
 					) : (
@@ -56,5 +51,3 @@ function SingleChatItem(props: Props) {
 		</div>
 	)
 }
-
-export default observer(SingleChatItem)

@@ -20,7 +20,7 @@ export default class ChatDataService {
 	}
 
 	async createChat(friendId: number): Promise<AxiosResponse<CreateChatResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.get<CreateChatResponse | NonSuccessResponse>(
+		return await this.httpClient.http.post<CreateChatResponse | NonSuccessResponse>(
 			`${this.pathHeader}/create-chat/${friendId}`
 		)
 	}
@@ -28,6 +28,12 @@ export default class ChatDataService {
 	async retrieveChatMessages(chatId: number): Promise<AxiosResponse<ChatMessage[] | NonSuccessResponse>> {
 		return await this.httpClient.http.get<ChatMessage[] | NonSuccessResponse>(
 			`${this.pathHeader}/retrieve-chat-messages/${chatId}`
+		)
+	}
+
+	async searchForUsername(username: string): Promise<AxiosResponse<SearchForUsersResponse | ErrorResponses>> {
+		return await this.httpClient.http.get<SearchForUsersResponse | ErrorResponses>(
+			`${this.pathHeader}/search-for-usernames/${username}`
 		)
 	}
 }

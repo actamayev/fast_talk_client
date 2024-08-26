@@ -1,6 +1,7 @@
 import _ from "lodash"
 import { useCallback } from "react"
 import ChatClass from "../../classes/chat-class"
+import useCreateNewChat from "./create-new-chat"
 import { useAuthContext } from "../../contexts/auth-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import { useApiClientContext } from "../../contexts/fast-talk-api-client-context"
@@ -8,6 +9,7 @@ import { useApiClientContext } from "../../contexts/fast-talk-api-client-context
 export default function useSendMessage(): (chat: ChatClass) => Promise<void>  {
 	const authClass = useAuthContext()
 	const fastTalkApiClient = useApiClientContext()
+	const createNewChat = useCreateNewChat()
 
 	return useCallback(async (chat: ChatClass) => {
 		try {
@@ -16,6 +18,8 @@ export default function useSendMessage(): (chat: ChatClass) => Promise<void>  {
 				_.isNull(authClass.username) ||
 				_.isEmpty(chat.draftMessage.trim())
 			) return
+
+			if (chat.chatId === 0) await createNewChat(chat)
 
 			const sendMessageResponse = await fastTalkApiClient.chatDataService.sendMessage(chat.chatId, chat.draftMessage)
 
@@ -42,5 +46,5 @@ export default function useSendMessage(): (chat: ChatClass) => Promise<void>  {
 		} catch (error) {
 			console.error(error)
 		}
-	}, [authClass.isLoggedIn, authClass.username, fastTalkApiClient.chatDataService])
+	}, [authClass.isLoggedIn, authClass.username, createNewChat, fastTalkApiClient.chatDataService])
 }

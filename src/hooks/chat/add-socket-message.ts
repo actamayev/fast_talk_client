@@ -14,8 +14,8 @@ export default function useAddSocketMessage(): (event: string) => void  {
 				const chatData: ChatData = {
 					chatId: newMessage.chat_id,
 					friendDetails: {
-						userId: newMessage.friend_user_id,
-						username: newMessage.friend_username
+						userId: newMessage.message_sender_user_id,
+						username: newMessage.message_sender_username
 					},
 					createdAt: newMessage.sent_time,
 					updatedAt: newMessage.sent_time,
@@ -34,8 +34,8 @@ export default function useAddSocketMessage(): (event: string) => void  {
 				messageId: newMessage.message_id,
 				text: newMessage.message_text,
 				senderDetails: {
-					userId: newMessage.friend_user_id,
-					username: newMessage.friend_username
+					userId: newMessage.message_sender_user_id,
+					username: newMessage.message_sender_username
 				},
 				createdAt: newMessage.sent_time,
 				updatedAt: newMessage.sent_time
