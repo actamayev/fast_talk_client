@@ -19,8 +19,11 @@ declare global {
 	}
 
 	//Chat Responses:
-	type RetrievedChatsList = {
+	type CreateChatResponse = {
 		chat_id: number
+	}
+
+	type RetrievedChatsList = CreateChatResponse & {
 		friend_username: string
 		friend_user_id: number
 		last_message: string
@@ -29,16 +32,11 @@ declare global {
 		chat_created_at: RustDate
 	}
 
-	type CreateChatResponse = {
-		chat_id: number
-	}
-
 	type SendMessageResponse = {
 		message_id: number
 	}
 
-	type ChatMessage = {
-		message_id: number
+	type ChatMessage = SendMessageResponse & {
 		did_user_send: boolean
 		sender_user_id: number
 		message_text: string
