@@ -1,11 +1,10 @@
-import { observer } from "mobx-react"
 import { useCallback, useState } from "react"
 import { RiChatNewLine } from "react-icons/ri"
 import DisplayUsernames from "./display-usernames"
 import UsernameSearchBox from "./username-search-box"
 import HoverOutlineComponent from "../hover-outline-component"
 
-function UsernameSearchButton() {
+export default function UsernameSearchButton() {
 	const [isUsernameSearchOpen, setIsUsernameSearchOpen] = useState(false)
 	const [usernameSearchResults, setUsernameSearchResults] = useState<UsernameSearch[]>([])
 	const [isLoading, setIsLoading] = useState(false)
@@ -43,5 +42,3 @@ function UsernameSearchButton() {
 		</div>
 	)
 }
-
-export default observer(UsernameSearchButton)

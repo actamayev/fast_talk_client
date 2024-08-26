@@ -47,8 +47,8 @@ declare global {
 
 	interface SocketMessage {
 		chat_id: number
-		friend_username: string
-		friend_user_id: number
+		message_sender_username: string
+		message_sender_user_id: number
 		message_text: string
 		message_id: number
 		sent_time: RustDate

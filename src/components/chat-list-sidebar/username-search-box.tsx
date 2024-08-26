@@ -20,8 +20,7 @@ export default function UsernameSearchBox(props: Props) {
 
 	useEffect(() => {
 		void usernameSearch(usernameToSearchFor, setIsLoading, setUsernameSearchResults)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [usernameSearch, usernameToSearchFor])
+	}, [setIsLoading, setUsernameSearchResults, usernameSearch, usernameToSearchFor])
 
 	return (
 		<div className="absolute top-0 left-0 right-0 bg-white dark:bg-black shadow-lg p-4 z-10 w-full max-w-lg mx-auto">
