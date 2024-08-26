@@ -1,6 +1,5 @@
 import _ from "lodash"
 import { useMemo } from "react"
-import { observer } from "mobx-react"
 import { useLocation } from "react-router-dom"
 import ChatClass from "../../classes/chat-class"
 import useDateFormatter from "../../hooks/date-formatter"
@@ -11,7 +10,7 @@ interface Props {
 	chat: ChatClass
 }
 
-function SingleChatItem(props: Props) {
+export default function SingleChatItem(props: Props) {
 	const { chat } = props
 	const dateFormatter = useDateFormatter()
 	const location = useLocation()
@@ -52,5 +51,3 @@ function SingleChatItem(props: Props) {
 		</div>
 	)
 }
-
-export default observer(SingleChatItem)
