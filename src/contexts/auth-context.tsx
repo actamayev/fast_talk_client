@@ -54,9 +54,9 @@ class AuthClass {
 		this.username = newUsername
 	})
 
-	public setDefaultSiteTheme = action((newSiteTheme: SiteThemes, addToLocalStorage: boolean = true): void => {
+	public setDefaultSiteTheme = action((newSiteTheme: SiteThemes): void => {
 		this.defaultSiteTheme = newSiteTheme
-		if (addToLocalStorage === true) localStorage.setItem("defaultSiteTheme", newSiteTheme)
+		localStorage.setItem("defaultSiteTheme", newSiteTheme)
 		if (newSiteTheme === "dark") document.documentElement.classList.add("dark")
 		else document.documentElement.classList.remove("dark")
 	})
