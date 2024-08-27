@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react"
 import { RiChatNewLine } from "react-icons/ri"
-import UsernameSearchModal from "./username-search-modal"
 import HoverOutlineComponent from "../hover-outline-component"
+import UsernameSearchModal from "./username-search-modal/username-search-modal"
 import useEscapeListenerUseEffect from "../../hooks/escape-key-listener-use-effect"
 
 export default function UsernameSearchButton() {
