@@ -8,7 +8,7 @@ function Home() {
 	return (
 		<>
 			<PageHelmet pageTitle="/" />
-			<div className="text-center">
+			<div className="text-center text-black dark:text-white">
 				No Chat Selected
 			</div>
 		</>
