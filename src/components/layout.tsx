@@ -17,7 +17,7 @@ function Layout(props: Props) {
 		if (location.pathname === "/login" || location.pathname === "/register") {
 			return "flex-1 w-full overflow-y-auto px-14 py-6 mt-14"
 		}
-		return "flex-1 w-full overflow-y-auto my-1 ml-72 relative"
+		return "flex-1 w-full overflow-y-auto my-1 ml-72"
 	}, [location.pathname])
 
 	return (
