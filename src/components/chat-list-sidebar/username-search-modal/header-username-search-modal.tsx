@@ -22,7 +22,7 @@ export default function HeaderUsernameSearchModal(props: Props) {
 				onChange={(e) => setUsernameToSearchFor(e.target.value)}
 				placeholder="Search by username..."
 				className="w-full p-2 border border-zinc-300 dark:border-zinc-700
-						rounded text-lg dark:bg-zinc-800 dark:text-white focus:outline-none cursor-text"
+				rounded text-lg dark:bg-zinc-800 dark:text-white focus:outline-none cursor-text"
 				value={usernameToSearchFor}
 			/>
 		</div>
