@@ -62,13 +62,13 @@ function UsernameSearchModal(props: Props) {
 						onChange={(e) => setUsernameToSearchFor(e.target.value)}
 						placeholder="Search by username..."
 						className="w-full p-2 border border-zinc-300 dark:border-zinc-700
-						rounded text-lg dark:bg-zinc-800 dark:text-white focus:outline-none cursor-auto"
+						rounded text-lg dark:bg-zinc-800 dark:text-white focus:outline-none cursor-text"
 						value={usernameToSearchFor}
 					/>
 					<HoverOutlineComponent
 						onClickAction={closeModal}
-						classes="relative flex items-center justify-center text-black dark:text-white"
-						circlePixelSize="30"
+						classes="ml-2 relative flex items-center justify-center text-black dark:text-white"
+						// circlePixelSize="30"
 					>
 						<FaTimes />
 					</HoverOutlineComponent>
